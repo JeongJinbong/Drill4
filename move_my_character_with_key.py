@@ -88,7 +88,7 @@ while State:
         frame = (frame + 1) % 4
         y += diry * 5
         if y > 1024 - 50 :
-            y = 1024- 50
+            y = 1024 - 50
         if y < 0 + 100:
              y = 0 + 100
         delay(0.1)
