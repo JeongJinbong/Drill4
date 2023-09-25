@@ -74,6 +74,10 @@ while State:
         handle_events()
         frame = (frame + 1) % 5
         x += dirx * 5
+        if x > 1280 - 85:
+            x= 1280-85
+        if x < 0 + 85:
+            x = 0 + 85
         delay(0.1)
     if Walking:
         clear_canvas()
@@ -83,6 +87,10 @@ while State:
         handle_events()
         frame = (frame + 1) % 4
         y += diry * 5
+        if y > 1024 - 50 :
+            y = 1024- 50
+        if y < 0 + 100:
+             y = 0 + 100
         delay(0.1)
 
 close_canvas()
