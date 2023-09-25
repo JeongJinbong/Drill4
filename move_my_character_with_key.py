@@ -10,7 +10,7 @@ walk = load_image('Walk.png')
 def handle_events():
     global State
     global Stay, Running, Walking
-    global dirx
+    global dirx, diry
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -24,6 +24,14 @@ def handle_events():
                 Stay = False
                 Running = True
                 dirx -= 1
+            elif event.key == SDLK_UP:
+                Stay = False
+                Walking = True
+                diry += 1
+            elif event.key == SDLK_DOWN:
+                Stay = False
+                Walking = True
+                diry -= 1
             elif event.key == SDLK_ESCAPE:
                 State = False
         elif event.type == SDL_KEYUP:
@@ -34,6 +42,10 @@ def handle_events():
                 dirx += 1
             elif event.key == SDLK_RIGHT:
                 dirx -= 1
+            elif event.key == SDLK_UP:
+                diry -= 1
+            elif event.key == SDLK_DOWN:
+                diry += 1
 
 
 x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
@@ -43,6 +55,7 @@ Running = False
 Walking = False
 frame = 0
 dirx = 0
+diry = 0
 
 while State:
     if Stay:
@@ -51,7 +64,7 @@ while State:
         idle.clip_draw(frame* 100,0,85, 100, x, y, 150, 150)
         update_canvas()
         handle_events()
-        frame = (frame + 1) % 4
+        frame = (frame + 1) % 3
         delay(0.3)
     if Running:
         clear_canvas()
@@ -61,6 +74,15 @@ while State:
         handle_events()
         frame = (frame + 1) % 5
         x += dirx * 5
+        delay(0.1)
+    if Walking:
+        clear_canvas()
+        tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+        walk.clip_draw(frame * 100, 0, 85, 100, x, y, 150, 150)
+        update_canvas()
+        handle_events()
+        frame = (frame + 1) % 4
+        y += diry * 5
         delay(0.1)
 
 close_canvas()
